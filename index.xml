@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Eddie Codes</title>
-    <link>http://example.org/</link>
+    <link>https://medenfield.github.io/bookshelf/</link>
     <description>Recent content on Eddie Codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -10,15 +10,15 @@
     <webMaster>michaeledenfield@gmail.com (Eddie Edenfield)</webMaster>
     <lastBuildDate>Sat, 15 Apr 2017 16:35:04 -0400</lastBuildDate>
     
-	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://medenfield.github.io/bookshelf/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>good to great</title>
-      <link>http://example.org/post/good-to-great/</link>
+      <link>https://medenfield.github.io/bookshelf/post/good-to-great/</link>
       <pubDate>Sat, 15 Apr 2017 16:35:04 -0400</pubDate>
       <author>michaeledenfield@gmail.com (Eddie Edenfield)</author>
-      <guid>http://example.org/post/good-to-great/</guid>
+      <guid>https://medenfield.github.io/bookshelf/post/good-to-great/</guid>
       <description></description>
     </item>
     

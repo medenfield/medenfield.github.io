@@ -2,29 +2,29 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.org/post/good-to-great/</loc>
+    <loc>https://medenfield.github.io/bookshelf/post/good-to-great/</loc>
     <lastmod>2017-04-15T16:35:04-04:00</lastmod>
   </url>
   
   <url>
-    <loc>http://example.org/categories/</loc>
+    <loc>https://medenfield.github.io/bookshelf/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://example.org/</loc>
-    <lastmod>2017-04-15T16:35:04-04:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.org/post/</loc>
+    <loc>https://medenfield.github.io/bookshelf/</loc>
     <lastmod>2017-04-15T16:35:04-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://example.org/tags/</loc>
+    <loc>https://medenfield.github.io/bookshelf/post/</loc>
+    <lastmod>2017-04-15T16:35:04-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://medenfield.github.io/bookshelf/tags/</loc>
     <priority>0</priority>
   </url>
   
