@@ -19,7 +19,9 @@
       <pubDate>Sat, 15 Apr 2017 22:18:12 -0400</pubDate>
       <author>michaeledenfield@gmail.com (Eddie Edenfield)</author>
       <guid>https://medenfield.github.io/post/hello-world/</guid>
-      <description>Hello world!</description>
+      <description>Hello world!
+This is my a personal project and portfolio site where I intend to write about new things I&amp;rsquo;m learning about programming and code. I will also revisit things I&amp;rsquo;ve created that I&amp;rsquo;m proud about and want to display publicly. Much of what is contained will be about challenging myself to accomplish X using something new, and then writing about it.
+For this site, I went with Hugo - a static site generator written in Go.</description>
     </item>
     
   </channel>

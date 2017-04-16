@@ -9,9 +9,14 @@
   <title>hello world</title>
   <meta property="og:title" content="hello world" />
   <meta name="twitter:title" content="hello world" />
-  <meta name="description" content="Hello world!">
-  <meta property="og:description" content="Hello world!">
-  <meta name="twitter:description" content="Hello world!">
+  <meta name="description" content="Hello world!
+This is my a personal project and portfolio site where I intend to write about new things I&rsquo;m learning about programming and code. I will also revisit things I&rsquo;ve created that I&rsquo;m proud about and want to display publicly. Much of what is contained will be about challenging myself to accomplish X using something new, and then writing about it.
+For this site, I went with Hugo - a static site generator written in Go.">
+  <meta property="og:description" content="Hello world!
+This is my a personal project and portfolio site where I intend to write about new things I&rsquo;m learning about programming and code. I will also revisit things I&rsquo;ve created that I&rsquo;m proud about and want to display publicly. Much of what is contained will be about challenging myself to accomplish X using something new, and then writing about it.
+For this site, I went with Hugo - a static site generator written in Go.">
+  <meta name="twitter:description" content="Hello world!
+This is my a personal project and portfolio site where I intend to write about new things I&rsquo;m learning about programming and code. I will also revisit things I&rsquo;ve created that …">
   <meta name="author" content="Eddie Edenfield"/>
   <meta name="twitter:card" content="summary" />
   <meta property="og:url" content="https://medenfield.github.io/post/hello-world/" />
@@ -111,6 +116,56 @@
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <article role="main" class="blog-post">
       <p>Hello world!</p>
+
+<p>This is my a personal project and portfolio site where I intend to write about new things I&rsquo;m learning about programming and code. I will also revisit things I&rsquo;ve created that I&rsquo;m proud about and want to display publicly. Much of what is contained will be about challenging myself to accomplish X using something new, and then writing about it.</p>
+
+<p>For this site, I went with <a href="https://gohugo.io/">Hugo</a> - a static site generator written in Go. <a href="https://www.twitter.com/kplawver">One my friends and mentors</a> happened to be playing with Hugo that morning as well, so that was the inspiration there. It was very quick to set up. I explored using Firebase to host the site, but really that&rsquo;s overkill and it&rsquo;s easy enough to just host the whole thing on Github for free (and show any related code to boot).</p>
+
+<p>It is very easy to get Hugo up and running and the tutorials are great. The thing I like most about Hugo is that it listens for changes as the server runs, meaning what I&rsquo;m writing is getting updated in real time as I save the file, without me refreshing the page. Of course that&rsquo;s all just happening locally, but over time, it will be easy enough to automate that process to build directly from my github page using Jenkins.</p>
+
+<p>Hugo is configured to generate HTML from Markdown files. I haven&rsquo;t had a chance to write a bunch of markdown so far; this post is pretty much a first past. I&rsquo;m following the examples at <a href="https://blog.ghost.org/markdown/">Ghost Blog</a> and yeah, super simple. Also, I installed the <a href="https://github.com/jonschlinkert/sublime-markdown-extended">Sublime markdown extended</a> package with the <a href="https://github.com/jonschlinkert/sublime-monokai-extended">Monokai Theme</a> for writing markdown in Sublime Text with a more colorful and highlighted editing experience.</p>
+
+<p>For example:</p>
+
+<p><em>Italics</em></p>
+
+<p><strong>Bold</strong></p>
+
+<p><strong><em>Italic Bold</em></strong></p>
+
+<p>Unordered List</p>
+
+<ul>
+<li>List Item 1
+
+<ul>
+<li>List Item 1 Child 1</li>
+<li>List Item 1 Child 2</li>
+</ul></li>
+<li>List Item 2</li>
+</ul>
+
+<p>Ordered List</p>
+
+<ol>
+<li>List Item 1
+
+<ul>
+<li>List Item 1 Child a</li>
+<li>List Item 2 Child b</li>
+</ul></li>
+<li>List Item 2</li>
+</ol>
+
+<p>Quote</p>
+
+<blockquote>
+<p>Quote</p>
+</blockquote>
+
+<p>Code</p>
+
+<p><code>&lt;?php echo 'hello world.'; ?&gt;</code></p>
 
     </article>
 
