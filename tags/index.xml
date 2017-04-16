@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Eddie Codes</title>
-    <link>https://medenfield.github.io/bookshelf/tags/</link>
+    <link>https://medenfield.github.io/tags/</link>
     <description>Recent content in Tags on Eddie Codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <managingEditor>michaeledenfield@gmail.com (Eddie Edenfield)</managingEditor>
     <webMaster>michaeledenfield@gmail.com (Eddie Edenfield)</webMaster>
     
-	<atom:link href="https://medenfield.github.io/bookshelf/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://medenfield.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
