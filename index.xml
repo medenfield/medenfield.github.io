@@ -8,7 +8,7 @@
     <language>en-us</language>
     <managingEditor>michaeledenfield@gmail.com (Eddie Edenfield)</managingEditor>
     <webMaster>michaeledenfield@gmail.com (Eddie Edenfield)</webMaster>
-    <lastBuildDate>Sat, 15 Apr 2017 22:18:12 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 16 Apr 2017 13:18:12 -0400</lastBuildDate>
     
 	<atom:link href="https://medenfield.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -16,7 +16,7 @@
     <item>
       <title>hello world</title>
       <link>https://medenfield.github.io/post/hello-world/</link>
-      <pubDate>Sat, 15 Apr 2017 22:18:12 -0400</pubDate>
+      <pubDate>Sun, 16 Apr 2017 13:18:12 -0400</pubDate>
       <author>michaeledenfield@gmail.com (Eddie Edenfield)</author>
       <guid>https://medenfield.github.io/post/hello-world/</guid>
       <description>Hello world!
