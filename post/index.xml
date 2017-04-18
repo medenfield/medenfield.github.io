@@ -8,10 +8,20 @@
     <language>en-us</language>
     <managingEditor>michaeledenfield@gmail.com (Eddie Edenfield)</managingEditor>
     <webMaster>michaeledenfield@gmail.com (Eddie Edenfield)</webMaster>
-    <lastBuildDate>Sun, 16 Apr 2017 13:18:12 -0400</lastBuildDate>
+    <lastBuildDate>Mon, 17 Apr 2017 21:59:28 -0400</lastBuildDate>
     
 	<atom:link href="https://medenfield.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Integrating Drupal 7 platform with Slack</title>
+      <link>https://medenfield.github.io/post/drupal-7-slack-integration/</link>
+      <pubDate>Mon, 17 Apr 2017 21:59:28 -0400</pubDate>
+      <author>michaeledenfield@gmail.com (Eddie Edenfield)</author>
+      <guid>https://medenfield.github.io/post/drupal-7-slack-integration/</guid>
+      <description>At Open Angler, we need to know when booking requests happen on our site. In the old days, a site manager might log in to a dashboard periodically, or perhaps get an email based on a customer action. These days, a push notification is probably better if time is of the essence.
+We love Slack, and decided the easiest way to achieve our goal would be to just set up a simple bot that posts to a dedicated channel whenever a new booking request is created.</description>
+    </item>
     
     <item>
       <title>hello world</title>

@@ -6,25 +6,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>hello world</title>
-  <meta property="og:title" content="hello world" />
-  <meta name="twitter:title" content="hello world" />
-  <meta name="description" content="Hello world!
-This is my a personal project and portfolio site where I intend to write about new things I&rsquo;m learning about programming and code. I will also revisit things I&rsquo;ve created that I&rsquo;m proud about and want to display publicly. Much of what is contained will be about challenging myself to accomplish X using something new, and then writing about it.
-For this site, I went with Hugo - a static site generator written in Go.">
-  <meta property="og:description" content="Hello world!
-This is my a personal project and portfolio site where I intend to write about new things I&rsquo;m learning about programming and code. I will also revisit things I&rsquo;ve created that I&rsquo;m proud about and want to display publicly. Much of what is contained will be about challenging myself to accomplish X using something new, and then writing about it.
-For this site, I went with Hugo - a static site generator written in Go.">
-  <meta name="twitter:description" content="Hello world!
-This is my a personal project and portfolio site where I intend to write about new things I&rsquo;m learning about programming and code. I will also revisit things I&rsquo;ve created that …">
+  <title>Integrating Drupal 7 platform with Slack</title>
+  <meta property="og:title" content="Integrating Drupal 7 platform with Slack" />
+  <meta name="twitter:title" content="Integrating Drupal 7 platform with Slack" />
+  <meta name="description" content="At Open Angler, we need to know when booking requests happen on our site. In the old days, a site manager might log in to a dashboard periodically, or perhaps get an email based on a customer action. These days, a push notification is probably better if time is of the essence.
+We love Slack, and decided the easiest way to achieve our goal would be to just set up a simple bot that posts to a dedicated channel whenever a new booking request is created.">
+  <meta property="og:description" content="At Open Angler, we need to know when booking requests happen on our site. In the old days, a site manager might log in to a dashboard periodically, or perhaps get an email based on a customer action. These days, a push notification is probably better if time is of the essence.
+We love Slack, and decided the easiest way to achieve our goal would be to just set up a simple bot that posts to a dedicated channel whenever a new booking request is created.">
+  <meta name="twitter:description" content="At Open Angler, we need to know when booking requests happen on our site. In the old days, a site manager might log in to a dashboard periodically, or perhaps get an email based on a customer action. …">
   <meta name="author" content="Eddie Edenfield"/>
   <meta name="twitter:card" content="summary" />
-  <meta property="og:url" content="https://medenfield.github.io/post/hello-world/" />
+  <meta property="og:url" content="https://medenfield.github.io/post/drupal-7-slack-integration/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Eddie Codes" />
 
   <meta name="generator" content="Hugo 0.20.1" />
-  <link rel="canonical" href="https://medenfield.github.io/post/hello-world/" />
+  <link rel="canonical" href="https://medenfield.github.io/post/drupal-7-slack-integration/" />
   <link rel="alternate" href="https://medenfield.github.io/index.xml" type="application/rss+xml" title="Eddie Codes">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -91,11 +88,11 @@ This is my a personal project and portfolio site where I intend to write about n
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
-              <h1>hello world</h1>
+              <h1>Integrating Drupal 7 platform with Slack</h1>
                 
                 
                   <span class="post-meta">
-  Posted on April 16, 2017
+  Posted on April 17, 2017
   
 </span>
 
@@ -115,66 +112,65 @@ This is my a personal project and portfolio site where I intend to write about n
         <div class="row">
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <article role="main" class="blog-post">
-      <p>Hello world!</p>
+      <p>At <a href="https://www.openangler.com">Open Angler</a>, we need to know when booking requests happen on our site. In the old days, a site manager might log in to a dashboard periodically, or perhaps get an email based on a customer action. These days, a push notification is probably better if time is of the essence.</p>
 
-<p>This is my a personal project and portfolio site where I intend to write about new things I&rsquo;m learning about programming and code. I will also revisit things I&rsquo;ve created that I&rsquo;m proud about and want to display publicly. Much of what is contained will be about challenging myself to accomplish X using something new, and then writing about it.</p>
+<p>We love Slack, and decided the easiest way to achieve our goal would be to just set up a simple bot that posts to a dedicated channel whenever a new booking request is created. In Drupal 7, we will act on <code>hook_node_insert</code>.</p>
 
-<p>For this site, I went with <a href="https://gohugo.io/">Hugo</a> - a static site generator written in Go. <a href="https://www.twitter.com/kplawver">One my friends and mentors</a> happened to be playing with Hugo yesterday morning as well, so that was the inspiration there. It was very quick to set up. I explored using Firebase to host the site, but really that&rsquo;s overkill and it&rsquo;s easy enough to just host the whole thing on Github for free (and show any related code to boot).</p>
+<p>We quickly find a <a href="https://www.drupal.org/project/slack">contributed module</a> that handles the Stripe-Drupal connection. We run <code>drush en -y slack</code> and then add the module install command to our update hook to ensure seamless deployment upstream:</p>
 
-<p>It is very easy to get Hugo up and running and the tutorials are great. The thing I like most about Hugo is that it listens for changes as the server runs, meaning what I&rsquo;m writing is getting updated in real time as I save the file, without me refreshing the page. Of course that&rsquo;s all just happening locally, but over time, it will be easy enough to automate that process to build directly from my github page using Jenkins.</p>
+<pre><code>/**
+ * Installs slack module.
+ */
+function oa_core_update_7055() {
+  $module_list = array('slack');
+  module_enable($module_list);
+}
+</code></pre>
 
-<p>Hugo is configured to generate HTML from Markdown files. I haven&rsquo;t had a chance to write a bunch of markdown so far; this post is pretty much a first past. I&rsquo;m following the examples at <a href="https://blog.ghost.org/markdown/">Ghost Blog</a> and yeah, super simple. Also, I installed the <a href="https://github.com/jonschlinkert/sublime-markdown-extended">Sublime markdown extended</a> package with the <a href="https://github.com/jonschlinkert/sublime-monokai-extended">Monokai Theme</a> for writing markdown in Sublime Text with a more colorful and highlighted editing experience.</p>
+<p>Next, we create an app at api.slack.com and configure for incoming web hooks.</p>
 
-<p>For example:</p>
+<p>Since we already have a custom module to handle all communications and notifications, we just put our <code>hook_node_insert</code> call there:</p>
 
-<p><em>Italics</em></p>
+<pre><code>function oa_communications_node_insert($node) {
+  // Routing live and test Slack messages to different channels based on
+  // our server environment.
+  if ($node-&gt;type == 'reservation_request') {
+    if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+      switch ($_ENV['AH_SITE_ENVIRONMENT']) {
+        case 'dev':
+        case 'test':
+          $webhook_url = 'https://hooks.slack.com/services/aaaaaaaaaaa/bbbbbbbbbbb/cccccccccccc';
+          break;
+        case 'prod':
+          $webhook_url = 'https://hooks.slack.com/services/aaaaaaaaaaa/bbbbbbbbbbb/cccccccccccc';
+          break;
+      }
+    }
+    else {
+      $webhook_url = 'https://hooks.slack.com/services/aaaaaaaaaaa/bbbbbbbbbbb/cccccccccccc';
+    }
+    global $base_url;
+    $message = '&lt;a href=&quot;' . $base_url . '/node/' . $node-&gt;nid . '&quot;&gt;New booking request! &lt;/a&gt;';
+    // Here is our call to the newly installed Slack module.
+    slack_send_message($webhook_url, $message);
+  }
+}
+</code></pre>
 
-<p><strong>Bold</strong></p>
+<p>In Drupal 8, you&rsquo;d take a slightly different route after installing the contrib module and setting up the slack app and call the <code>sendMessage</code> method from the Slack class in <code>hook_node_update</code> or just set up an action in the <code>rules</code> module.</p>
 
-<p><strong><em>Italic Bold</em></strong></p>
+<p>This is working fine for now, but as we scale, we&rsquo;ll likely pull more values from the <code>$node</code> object to create a more detailed Slack message and prevent a click through.</p>
 
-<p>Unordered List</p>
-
-<ul>
-<li>List Item 1
-
-<ul>
-<li>List Item 1 Child 1</li>
-<li>List Item 1 Child 2</li>
-</ul></li>
-<li>List Item 2</li>
-</ul>
-
-<p>Ordered List</p>
-
-<ol>
-<li>List Item 1
-
-<ul>
-<li>List Item 1 Child a</li>
-<li>List Item 2 Child b</li>
-</ul></li>
-<li>List Item 2</li>
-</ol>
-
-<p>Quote</p>
-
-<blockquote>
-<p>Quote</p>
-</blockquote>
-
-<p>Code</p>
-
-<p><code>&lt;?php echo 'hello world.'; ?&gt;</code></p>
+<p>Very simple all around and would probably be a quick win for any Drupal site. The same tasks above can be accomplished with Rules if you prefer admin configuration. In the example above, I chose not to configure default settings through the module&rsquo;s admin interface but I suspect that&rsquo;s probably the best thing to do for most use cases.</p>
 
     </article>
 
     <ul class="pager blog-pager">
       
-      
-        <li class="next">
-          <a href="https://medenfield.github.io/post/drupal-7-slack-integration/" data-toggle="tooltip" data-placement="top" title="Integrating Drupal 7 platform with Slack">Next Post &rarr;</a>
+        <li class="previous">
+          <a href="https://medenfield.github.io/post/hello-world/" data-toggle="tooltip" data-placement="top" title="hello world">&larr; Previous Post</a>
         </li>
+      
       
     </ul>
 
