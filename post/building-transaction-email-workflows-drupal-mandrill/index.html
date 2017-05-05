@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Building transactional email workflows with Drupal and Mandrill</title>
+  <meta property="og:title" content="Building transactional email workflows with Drupal and Mandrill" />
+  <meta name="twitter:title" content="Building transactional email workflows with Drupal and Mandrill" />
+  <meta name="description" content="At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online.
+Most web frameworks like Drupal have built in methods and modules to handle sending email, but plaintext is the default, and it&rsquo;s done from the same server you host your website, generally speaking. So let&rsquo;s improve upon that. This is specific to Drupal, but the general process is likely similar.">
+  <meta property="og:description" content="At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online.
+Most web frameworks like Drupal have built in methods and modules to handle sending email, but plaintext is the default, and it&rsquo;s done from the same server you host your website, generally speaking. So let&rsquo;s improve upon that. This is specific to Drupal, but the general process is likely similar.">
+  <meta name="twitter:description" content="At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online.
+Most web frameworks like Drupal …">
+  <meta name="author" content="Eddie Edenfield"/>
+  <meta name="twitter:card" content="summary" />
+  <meta property="og:url" content="https://medenfield.github.io/post/building-transaction-email-workflows-drupal-mandrill/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Eddie Codes" />
+
+  <meta name="generator" content="Hugo 0.20.1" />
+  <link rel="canonical" href="https://medenfield.github.io/post/building-transaction-email-workflows-drupal-mandrill/" />
+  <link rel="alternate" href="https://medenfield.github.io/index.xml" type="application/rss+xml" title="Eddie Codes">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://medenfield.github.io//css/main.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+  <link rel="stylesheet" href="https://medenfield.github.io//css/pygment_highlights.css" />
+  <link rel="stylesheet" href="https://medenfield.github.io//css/highlight.min.css" />
+</head>
+
+
+  <body>
+
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://medenfield.github.io/">Eddie Codes</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Building transactional email workflows with Drupal and Mandrill</h1>
+                
+                
+                  <span class="post-meta">
+  Posted on April 20, 2017
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+
+    <div class="container" role="main">
+      
+        <div class="row">
+  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <article role="main" class="blog-post">
+      <p>At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online.</p>
+
+<p>Most web frameworks like Drupal have built in methods and modules to handle sending email, but plaintext is the default, and it&rsquo;s done from the same server you host your website, generally speaking. So let&rsquo;s improve upon that. This is specific to Drupal, but the general process is likely similar.</p>
+
+<p>Consider first:</p>
+
+<ol>
+<li>What actions should trigger an email?</li>
+<li>What variable data should be in the email?</li>
+<li>How should the email look?</li>
+<li>Was the email opened?</li>
+<li>Did the user click the button you wanted them to?</li>
+</ol>
+
+<p>At Open Angler, we chose Mandrill to enable us to improve upon how we send email to customers. Mandrill has a PHP library. So starting there, I wrote a custom module to glue everything together and handle passing variables directly to a template.</p>
+
+<p>The general idea:</p>
+
+<ol>
+<li>Build templates in Mailchimp.</li>
+<li>Use simple conditional logic and variables within your templates to alter the output.</li>
+<li>When satisfied, export the template to Mandrill.</li>
+<li>Manage routing and logic in a custom module in Drupal.</li>
+</ol>
+
+<p>In our custom module, we fist want to create the main callback function that will
+be used throughout our codebase to send an email.</p>
+
+<pre><code>/**
+ * Main callback for routing an outbound email to Mandrill.
+ */
+function oa_mandrill_send($nid, $template_name) {
+  $path = drupal_get_path('module', 'oa_mandrill');
+  require_once($path . '/mandrill/src/Mandrill.php');
+  $mandrill = new Mandrill(&quot;M-xxxxxxxxxxxxxxx&quot;);
+
+  $booking_wrapper = entity_metadata_wrapper('node', $nid);
+  $message_vars = get_message_variables($template_name, $booking_wrapper);
+
+  $message = array(
+    'from_email' =&gt; 'info@openangler.com',
+    'from_name' =&gt; 'Open Angler',
+    'subject' =&gt; $message_vars['subject'],
+    'to' =&gt; array(
+      array(
+        'email' =&gt; $message_vars['to_email'],
+        'name' =&gt; $message_vars['to_name'],
+      ),
+    ),
+    'merge_vars' =&gt; array(
+      array(
+        'rcpt' =&gt; $message_vars['to_email'],
+        'vars' =&gt; get_merge_variables($template_name, $booking_wrapper),
+      ),
+    )
+  );
+
+  $message['merge_vars'][0]['vars'][] = array(
+    'name' =&gt; 'ENV',
+    'content' =&gt; $GLOBALS['base_url'],
+  );
+  $mandrill-&gt;messages-&gt;sendTemplate($template_name, $template_content = array(), $message);
+}
+</code></pre>
+
+<p>Next, we craft a subject line and recipients based on the template name and entity wrapper.</p>
+
+<pre><code>/**
+ * Get message variables based on the type of message being sent.
+ */
+function get_message_variables($template_name, $booking_wrapper) {
+  $message_vars = array();
+  switch ($template_name) {
+    case 'trip-request-for-guide':
+      $message_vars = array(
+        'subject' =&gt; 'New reservation request',
+        'to_email' =&gt; $booking_wrapper-&gt;author-&gt;mail-&gt;value(),
+        'to_name' =&gt; $booking_wrapper-&gt;author-&gt;field_first_name-&gt;value() . ' ' . $booking_wrapper-&gt;author-&gt;field_last_name-&gt;value(),
+      );
+      return $message_vars;
+    case 'trip-reminder-for-guide-24hrs':
+      $message_vars = array(
+        'subject' =&gt; 'Reminder of your upcoming reservation',
+        'to_email' =&gt; $booking_wrapper-&gt;author-&gt;mail-&gt;value(),
+        'to_name' =&gt; $booking_wrapper-&gt;author-&gt;field_first_name-&gt;value() . ' ' . $booking_wrapper-&gt;author-&gt;field_last_name-&gt;value(),
+      );
+      return $message_vars;
+  }
+}
+</code></pre>
+
+<p>Finally, we pass variables to the template. These correspond to merge variables within Mandrill, which we place into the template using *|VARIABLE|*.</p>
+
+<pre><code>/**
+ * Get merge variables based on the type of message being sent.
+ *
+ * As more transactionals are moved to Mandrill, we'll add case statements to
+ * match templates and merge variables.
+ *
+ */
+function get_merge_variables($template_name, $booking_wrapper) {
+  $merge_vars = array();
+  switch ($template_name) {
+    case 'trip-request-for-guide':
+    case 'trip-reminder-for-guide-24hrs':
+      $merge_vars[0]['name'] = 'GUIDE_NAME';
+      $merge_vars[0]['content'] = $booking_wrapper-&gt;author-&gt;field_guide_name-&gt;value();
+      $merge_vars[1]['name'] = 'TRAVELER_NAME';
+      $merge_vars[1]['content'] = $booking_wrapper-&gt;field_customer_name-&gt;value();
+      $merge_vars[2]['name'] = 'TRAVELER_PHONE';
+      $merge_vars[2]['content'] = $booking_wrapper-&gt;field_customer_phone-&gt;value();
+      $merge_vars[3]['name'] = 'TRAVELER_EMAIL';
+      $merge_vars[3]['content'] = $booking_wrapper-&gt;field_customer_email-&gt;value();
+      $merge_vars[4]['name'] = 'LISTING';
+      $merge_vars[4]['content'] = $booking_wrapper-&gt;title-&gt;value();
+      $merge_vars[5]['name'] = 'TRIP_DATE';
+      $merge_vars[5]['content'] = date('m/d/Y', $booking_wrapper-&gt;field_booking_date-&gt;value-&gt;value());
+      $merge_vars[6]['name'] = 'NUMBER_OF_GUESTS';
+      $merge_vars[6]['content'] = $booking_wrapper-&gt;field_guest_count-&gt;value();
+      $merge_vars[7]['name'] = 'PAYOUT_AMOUNT';
+      $merge_vars[7]['content'] = '$' . $booking_wrapper-&gt;field_payout_amount-&gt;value();
+      $merge_vars[8]['name'] = 'NID';
+      $merge_vars[8]['content'] = $booking_wrapper-&gt;nid-&gt;value();
+      $merge_vars[9]['name'] = 'MESSAGE_BODY';
+      $merge_vars[9]['content'] = $booking_wrapper-&gt;field_notes-&gt;value();
+      return $merge_vars;
+    }
+  }
+</code></pre>
+
+<p>And that&rsquo;s it. Any time we want to send a transactional email, we simply call <code>oa_mandrill_send()</code> and pass an entity ID and template.</p>
+
+<p>One caveat - Changes in Mailchimp and Mandrill can often change at a different pace than your code is updating. Be mindful of changing a live template while testing and to establish a clear workflow with your content management team.</p>
+
+    </article>
+
+    <ul class="pager blog-pager">
+      
+        <li class="previous">
+          <a href="https://medenfield.github.io/post/drupal-7-slack-integration/" data-toggle="tooltip" data-placement="top" title="Integrating Drupal 7 platform with Slack">&larr; Previous Post</a>
+        </li>
+      
+      
+    </ul>
+
+    
+
+  </div>
+</div>
+
+      
+    </div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="mailto:michaeledenfield@gmail.com" title="Email me">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          Eddie Edenfield
+          &nbsp;&bull;&nbsp;
+          2017
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://medenfield.github.io/">Eddie Codes</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.20.1</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://medenfield.github.io//js/main.js"></script>
+<script src="https://medenfield.github.io//js/highlight.min.js"></script>
+<script> hljs.initHighlightingOnLoad(); </script>
+<script> renderMathInElement(document.body); </script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
