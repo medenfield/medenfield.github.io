@@ -246,9 +246,9 @@ function get_merge_variables($template_name, $booking_wrapper) {
   }
 </code></pre>
 
-<p>And that&rsquo;s it. Any time we want to send a transactional email, we simply call <code>oa_mandrill_send()</code> and pass an entity ID and specify a template.</p>
+<p>And that&rsquo;s it. Any time we want our app to send a transactional email, we simply call <code>oa_mandrill_send()</code> at the appropriate place and pass entity and template ID.</p>
 
-<p>One caveat - Changes in Mailchimp and Mandrill can often change at a different pace than your code is updating. Be mindful of changing a live template while testing and to establish a clear workflow with your content management team.</p>
+<p>One caveat - Changes in Mailchimp and Mandrill can often unfold at a different pace than your deployment workflow. Be mindful of changing a live template while testing and to establish a clear process with your content management team.</p>
 
     </article>
 
