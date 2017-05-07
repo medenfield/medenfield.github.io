@@ -9,12 +9,11 @@
   <title>Building transactional email workflows with Drupal and Mandrill</title>
   <meta property="og:title" content="Building transactional email workflows with Drupal and Mandrill" />
   <meta name="twitter:title" content="Building transactional email workflows with Drupal and Mandrill" />
-  <meta name="description" content="At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online.
-Most web frameworks like Drupal have built in methods and modules to handle sending email, but plaintext is the default, and it&rsquo;s done from the same server you host your website, generally speaking. So let&rsquo;s improve upon that. This is specific to Drupal, but the general process is likely similar.">
-  <meta property="og:description" content="At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online.
-Most web frameworks like Drupal have built in methods and modules to handle sending email, but plaintext is the default, and it&rsquo;s done from the same server you host your website, generally speaking. So let&rsquo;s improve upon that. This is specific to Drupal, but the general process is likely similar.">
-  <meta name="twitter:description" content="At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online.
-Most web frameworks like Drupal …">
+  <meta name="description" content="At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online. We use Mandrill to manage our entire suite of outbound email to customers and charter providers, gaining insight into bounce and open confirmation, and empowering our content team to make trivial changes to email templates without developer intervention.
+Most web application frameworks have built in or readily available modules to handle sending email, but plaintext is likely the default, and it&rsquo;s likely done from the same server you host your website without any tools for greater insight.">
+  <meta property="og:description" content="At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online. We use Mandrill to manage our entire suite of outbound email to customers and charter providers, gaining insight into bounce and open confirmation, and empowering our content team to make trivial changes to email templates without developer intervention.
+Most web application frameworks have built in or readily available modules to handle sending email, but plaintext is likely the default, and it&rsquo;s likely done from the same server you host your website without any tools for greater insight.">
+  <meta name="twitter:description" content="At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online. We use Mandrill to manage our …">
   <meta name="author" content="Eddie Edenfield"/>
   <meta name="twitter:card" content="summary" />
   <meta property="og:url" content="https://medenfield.github.io/post/building-transaction-email-workflows-drupal-mandrill/" />
@@ -113,11 +112,11 @@ Most web frameworks like Drupal …">
         <div class="row">
   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <article role="main" class="blog-post">
-      <p>At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online.</p>
+      <p>At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online. We use Mandrill to manage our entire suite of outbound email to customers and charter providers, gaining insight into bounce and open confirmation, and empowering our content team to make trivial changes to email templates without developer intervention.</p>
 
-<p>Most web frameworks like Drupal have built in methods and modules to handle sending email, but plaintext is the default, and it&rsquo;s done from the same server you host your website, generally speaking. So let&rsquo;s improve upon that. This is specific to Drupal, but the general process is likely similar.</p>
+<p>Most web application frameworks have built in or readily available modules to handle sending email, but plaintext is likely the default, and it&rsquo;s likely done from the same server you host your website without any tools for greater insight.</p>
 
-<p>Consider first:</p>
+<p>Consider first when you are planning:</p>
 
 <ol>
 <li>What actions should trigger an email?</li>
@@ -127,19 +126,23 @@ Most web frameworks like Drupal …">
 <li>Did the user click the button you wanted them to?</li>
 </ol>
 
-<p>At Open Angler, we chose Mandrill to enable us to improve upon how we send email to customers. Mandrill has a PHP library. So starting there, I wrote a custom module to glue everything together and handle passing variables directly to a template.</p>
+<p>Starting with Mandrill&rsquo;s PHP library, I wrote a custom module for Open Angler&rsquo;s Drupal platform to handle passing variables directly to one of many templates created through Mailchimp and exported to Mandrill.</p>
 
 <p>The general idea:</p>
 
 <ol>
-<li>Build templates in Mailchimp.</li>
-<li>Use simple conditional logic and variables within your templates to alter the output.</li>
+<li>Build your templates in Mailchimp.</li>
+<li>Use simple conditional logic and variables within your templates to affect output.</li>
 <li>When satisfied, export the template to Mandrill.</li>
 <li>Manage routing and logic in a custom module in Drupal.</li>
 </ol>
 
-<p>In our custom module, we fist want to create the main callback function that will
-be used throughout our codebase to send an email.</p>
+<p>Here&rsquo;s what your message with variables might look like in Mailchimp / Mandrill:</p>
+
+<p><img src="/images/mailchimp-example.png" alt="Mailchimp Example" /></p>
+
+<p>In our custom module, we first want to create the function that we will
+call throughout our codebase to send emails.</p>
 
 <pre><code>/**
  * Main callback for routing an outbound email to Mandrill.
@@ -243,7 +246,7 @@ function get_merge_variables($template_name, $booking_wrapper) {
   }
 </code></pre>
 
-<p>And that&rsquo;s it. Any time we want to send a transactional email, we simply call <code>oa_mandrill_send()</code> and pass an entity ID and template.</p>
+<p>And that&rsquo;s it. Any time we want to send a transactional email, we simply call <code>oa_mandrill_send()</code> and pass an entity ID and specify a template.</p>
 
 <p>One caveat - Changes in Mailchimp and Mandrill can often change at a different pace than your code is updating. Be mindful of changing a live template while testing and to establish a clear workflow with your content management team.</p>
 

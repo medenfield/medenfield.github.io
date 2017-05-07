@@ -19,8 +19,8 @@
       <pubDate>Thu, 20 Apr 2017 15:31:13 -0400</pubDate>
       <author>michaeledenfield@gmail.com (Eddie Edenfield)</author>
       <guid>https://medenfield.github.io/post/building-transaction-email-workflows-drupal-mandrill/</guid>
-      <description>At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online.
-Most web frameworks like Drupal have built in methods and modules to handle sending email, but plaintext is the default, and it&amp;rsquo;s done from the same server you host your website, generally speaking. So let&amp;rsquo;s improve upon that. This is specific to Drupal, but the general process is likely similar.</description>
+      <description>At Open Angler, transactional texts and emails are an important part of how we facilitate and improve upon the process of booking a charter boat or fishing trip online. We use Mandrill to manage our entire suite of outbound email to customers and charter providers, gaining insight into bounce and open confirmation, and empowering our content team to make trivial changes to email templates without developer intervention.
+Most web application frameworks have built in or readily available modules to handle sending email, but plaintext is likely the default, and it&amp;rsquo;s likely done from the same server you host your website without any tools for greater insight.</description>
     </item>
     
     <item>
